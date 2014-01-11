@@ -33,7 +33,7 @@ puts "  Remove URLs Tests"
 json_test_files = ["RemoveURLsTest1.json", "RemoveURLsTest2.json"]
 real_output = Real_Remove_Urls_Output
 for i in (0...real_output.length)
-    puts "    Test #{i + 1}: " + remove_urls_test(json_test_files[i], real_output[i])
+  puts "    Test #{i + 1}: " + remove_urls_test(json_test_files[i], real_output[i])
 end
 
 # Extract Words Tests
@@ -42,7 +42,7 @@ puts "  Extract Words Tests"
 input_list = Extract_Words_Input
 real_output = Real_Extract_Words_Output
 for i in (0...real_output.length)
-    puts "    Test #{i + 1}: " + extract_words_test(input_list[i], real_output[i])
+  puts "    Test #{i + 1}: " + extract_words_test(input_list[i], real_output[i])
 end
 
 # AnalyzerTests

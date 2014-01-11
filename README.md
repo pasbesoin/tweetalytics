@@ -51,7 +51,7 @@ For further information on twurl click <a href="https://github.com/marcel/twurl"
 To begin data collection type in the following commands:
 
 ```bash
-cd rubalytics
+cd tweetalytics
 ```
 
 ```bash
@@ -65,7 +65,7 @@ irb -r ./Run.rb
 For example:
 
 ```ruby
->>> collect(25, "tweets", bounding_box=Southern_California)
+>>> collect(25, "tweets", Southern_California)
 ```
 
 #### How to track a certain keyword ####
@@ -75,7 +75,7 @@ For example:
 For example:
 
 ```ruby
->>> collect(25, "tweets", keyword="obama")
+>>> collect(25, "tweets", "obama")
 ```
 
 #### Bounding Boxes ####

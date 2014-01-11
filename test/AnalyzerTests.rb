@@ -8,9 +8,9 @@ require './app/Processor'
 require './app/Analyzer'
 
 def average_number_of_characters_test()
-    pass
+  pass
 end
 
 def number_of_occurrences_test()
-    pass
+  pass
 end

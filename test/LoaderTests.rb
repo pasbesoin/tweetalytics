@@ -6,5 +6,5 @@
 require './app/Loader'
 
 def load_test()
-    pass
+  pass
 end
