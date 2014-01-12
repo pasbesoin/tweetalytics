@@ -69,10 +69,16 @@ def extract_words(text)
 end
 
 # Return an array of words in each tweet.
-def process(no_urls_text)
+def tweet_words(no_urls_text)
   processed_text = []
   for i in (0...no_urls_text.length)
     processed_text.push(extract_words(no_urls_text[i]))
   end
+  return processed_text
+end
+
+def process(tweets)
+  no_urls_text = remove_urls(tweets)
+  processed_text = tweet_words(no_urls_text)
   return processed_text
 end

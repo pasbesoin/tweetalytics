@@ -30,7 +30,7 @@ puts "ProcessorTests"
 # Remove URLs Test
 
 puts "  Remove URLs Tests"
-json_test_files = ["RemoveURLsTest1.json", "RemoveURLsTest2.json"]
+json_test_files = ["RemoveURLsTest1", "RemoveURLsTest2"]
 real_output = Real_Remove_Urls_Output
 for i in (0...real_output.length)
   puts "    Test #{i + 1}: " + remove_urls_test(json_test_files[i], real_output[i])

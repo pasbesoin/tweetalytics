@@ -2,9 +2,7 @@
 
 Welcome to Tweetalytics! This is a tool for collecting and analyzing tweets.
 
-## Getting Started ##
-
-### Setup ###
+## Setup ##
 
 1\. <a href="https://twitter.com/signup" target="_blank">Create a Twitter Account</a>
 
@@ -44,38 +42,50 @@ twurl authorize --consumer-key key --consumer-secret secret
 
 11\. Enter the returned PIN back into the terminal
 
-For further information on twurl click <a href="https://github.com/marcel/twurl" target="_blank">here</a>.
+12\. <a href="https://github.com/tweetalytics/tweetalytics/archive/master.zip" target="_blank">Download this repository</a>
 
-### Data Collection ###
+## Getting Started ##
 
-To begin data collection type in the following commands:
-
-```bash
-cd tweetalytics
-```
+To begin using this tool, make sure your current directory is the tweetalytics repository and type in the following command:
 
 ```bash
 irb -r ./Run.rb
 ```
 
-#### How to stream tweets from a certain location ####
+### Commands for fun ###
 
-* Use the collect function and specify how many tweets you want, the name of the file you will create, and a bounding box.
+#### How to post a tweet ####
+
+* Use the post function and specify your tweet.
 
 For example:
 
 ```ruby
->>> collect(25, "tweets", Southern_California)
+>>> post("Hello World!")
+```
+
+### Collect Tweets ###
+
+There are two ways to collect tweets: first, by specifying a bounding box, which is an array that consists of bottom-left-longitude, bottom-left-latitude, top-right-longitude, and top-right-latitude coordinates, and second, by specifying a certain keyword you want to track.
+
+#### How to stream tweets from a certain location ####
+
+Use the collect function and specify how many tweets you want, the name of the file you will create, and a bounding box.
+
+For example:
+
+```ruby
+> collect(25, "tweets", United_States)
 ```
 
 #### How to track a certain keyword ####
 
-* Use the collect function and specify how many tweets you want, the name of the file you will create, and the keyword.
+Use the collect function and specify how many tweets you want, the name of the file you will create, and the keyword.
 
 For example:
 
 ```ruby
->>> collect(25, "tweets", "obama")
+> collect(25, "tweets", "obama")
 ```
 
 #### Bounding Boxes ####
@@ -98,16 +108,52 @@ For example:
 | Boston              | `-71.189716,42.233983,-70.98787,42.384923      ` |
 | San Francisco       | `-122.505852,37.707998,-122.358223,37.833107   ` |
 
-### Commands for fun ###
+### Load Tweets ###
 
-#### How to post a tweet ####
+The next thing to do is to load the tweets you just collected into Ruby.
 
-* Use the post function and specify your tweet.
+#### How to load tweets in a JSON file into Ruby ####
 
 For example:
 
 ```ruby
->>> post("Hello World!")
+> tweets = load("tweets")
+```
+
+### Process Tweets ###
+
+Now process the tweets you just loaded in.
+
+#### How to process tweets ####
+
+For example:
+
+```ruby
+> processed_text = process(tweets)
+```
+
+or if you don't want to process the tweets:
+
+```ruby
+> raw_text = get_raw_text(tweets)
+```
+
+### Analyze Tweets ###
+
+Then analyze the processed tweets.
+
+#### How to analyze the text in tweets ####
+
+For example:
+
+```ruby
+> number_of_obama_references = number_of_occurrences("obama", processed_text)
+```
+
+or
+
+```ruby
+> average_number_of_characters_in_tweets = average_number_of_characters(raw_text)
 ```
 
 ## License ##
