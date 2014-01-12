@@ -14,8 +14,9 @@ def collect(number_of_tweets=nil, filename=nil, stream_type=nil)
   filename_without_spaces = ""
   for i in filename_array
     filename_without_spaces += i
+    filename_without_spaces += "_"
   end
-  new_filename = filename_without_spaces
+  new_filename = filename_without_spaces.chop
   if stream_type.class == Array
     bounding_box = convert_bounding_box(stream_type)
     cmd = "twurl -d locations=#{bounding_box} -H stream.twitter.com /1.1/statuses/filter.json > data/#{new_filename}.json"
