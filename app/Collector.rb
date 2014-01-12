@@ -10,17 +10,23 @@ def collect(number_of_tweets=nil, filename=nil, stream_type=nil)
   if error
     return
   end
+  filename_array = filename.split()
+  filename_without_spaces = ""
+  for i in filename_array
+    filename_without_spaces += i
+  end
+  new_filename = filename_without_spaces
   if stream_type.class == Array
     bounding_box = convert_bounding_box(stream_type)
-    cmd = "twurl -d locations=#{bounding_box} -H stream.twitter.com /1.1/statuses/filter.json > data/#{filename}.json"
+    cmd = "twurl -d locations=#{bounding_box} -H stream.twitter.com /1.1/statuses/filter.json > data/#{new_filename}.json"
   elsif stream_type.class == String
     keyword = stream_type
-    cmd = "twurl -d track=#{keyword} -H stream.twitter.com /1.1/statuses/filter.json > data/#{filename}.json"
+    cmd = "twurl -d track=#{keyword} -H stream.twitter.com /1.1/statuses/filter.json > data/#{new_filename}.json"
   end
-  file = File.open("data/#{filename}.json", "w+")
+  file = File.open("data/#{new_filename}.json", "w+")
   pid = Process.spawn(cmd)
   while true
-    number_of_lines = IO.readlines("data/#{filename}.json").length
+    number_of_lines = IO.readlines("data/#{new_filename}.json").length
     if number_of_lines >= number_of_tweets
       Process.detach(pid)
       Process.detach(pid + 1)
@@ -30,10 +36,11 @@ def collect(number_of_tweets=nil, filename=nil, stream_type=nil)
     end
   end
   file.close
-  number_of_lines = IO.readlines("data/#{filename}.json").length
+  number_of_lines = IO.readlines("data/#{new_filename}.json").length
   if number_of_lines > number_of_tweets
-    remove(number_of_tweets, filename)
+    remove(number_of_tweets, new_filename)
   end
+  File.rename("data/#{new_filename}.json", "data/#{filename}.json")
   puts "Successful!"
   puts "#{number_of_tweets} tweets collected."
   puts "You can find your tweets at tweetalytics/data/#{filename}.json"
