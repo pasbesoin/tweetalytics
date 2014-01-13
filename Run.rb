@@ -10,7 +10,7 @@ require './app/Analyzer'
 require './app/Poster'
 require './app/data/bounding_boxes'
 
-$json_file = "tweets"
+$json_file = "SampleTweets2"
 
 $tweets = load($json_file)
 $en_lang_tweets = get_en_lang($tweets)
@@ -30,5 +30,5 @@ $mean_num_of_char = mean_number_of_characters($raw_text)
 $med_num_of_char = median_number_of_characters($raw_text)
 $mode_num_of_char = mode_number_of_characters($raw_text)
 
-$top_10_processed_text = top(10, $processed_text)
-$top_10_delimited_raw_text = top(10, $delimited_raw_text)
+$top_5_processed_text = top_words(5, $processed_text)
+$top_5_delimited_raw_text = top_words(5, $delimited_raw_text)

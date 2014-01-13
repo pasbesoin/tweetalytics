@@ -42,22 +42,19 @@ end
 # Measures the average number of characters of a set of tweets
 def mean_number_of_characters(array_of_text)
   array_of_numbers = number_of_characters(array_of_text)
-  mean_length_of_tweet = mean(array_of_numbers)
-  return mean_length_of_tweet
+  return mean(array_of_numbers)
 end
 
 # Measures the median number of characters of a set of tweets
 def median_number_of_characters(array_of_text)
   array_of_numbers = number_of_characters(array_of_text)
-  median_length_of_tweet = median(array_of_numbers)
-  return median_length_of_tweet
+  return median(array_of_numbers)
 end
 
 # Measures the median number of characters of a set of tweets
 def mode_number_of_characters(array_of_text)
   array_of_numbers = number_of_characters(array_of_text)
-  mode_length_of_tweet = mode(array_of_numbers)
-  return mode_length_of_tweet
+  return mode(array_of_numbers)
 end
 
 # STATISTICS
@@ -131,7 +128,8 @@ def number_of_exact_matches(keyword, processed_text)
 end
 
 # Find the x most popular words used in a set of tweets.
-def top(x, processed_text)
+# If more than x words are found initially, then it only keeps the largest words
+def top_words(x, processed_text)
   set = Hash.new
   for text in processed_text
     text.each do |word|
@@ -142,16 +140,16 @@ def top(x, processed_text)
       end
     end
   end
-  set.keep_if { |k, v| not $dead_words.include?(k) }
-  min_of_most_popular = set.values.top(x)[0]
-  set.select! { |k, v| v >= min_of_most_popular }
+  set = set.select { |k, v| not $insignificant_words.include?(k) }
+  last_popular_word_count = set.values.top(x)[0]
+  set = set.select { |k, v| v >= last_popular_word_count }
   if set.length > x
     set_copy = set.clone
-    set_length = set.keep_if { |k, v| v > min_of_most_popular }.length
-    set_copy = set_copy.select { |k, v| v == min_of_most_popular }
-    room = x - set_length
-    largest_words = set_copy.keys.top(room)[0]
-    subset = set_copy.select { |k, v| k.length >= largest_words }
+    set = set.select { |k, v| v > last_popular_word_count }
+    subset = set_copy.select { |k, v| v == last_popular_word_count }
+    word_space = x - set.length
+    last_large_word_length = subset.keys.top(word_space)[0]
+    subset = subset.select { |k, v| k.length >= last_large_word_length }
     subset.each do |k, v|
       set.store(k, v)
     end
@@ -159,12 +157,14 @@ def top(x, processed_text)
   return set
 end
 
-$dead_words = ["the", "a", "to", "is", "an", "of", "and", "or", "it"]
+$insignificant_words = ["the", "a", "to", "is", "an", "of", "and", "or", "it"]
 
 class Array
   def top(x)
     if self.length < x
       puts "Error"
+      puts "The top #{x} values of this Array cannot be found"
+      puts "#{x} is greater than the Array's length: #{self.length}"
       return
     else
       if self[0].class == String
