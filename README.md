@@ -52,18 +52,6 @@ To begin using this tool, make sure your current directory is the tweetalytics r
 irb -r ./Run.rb
 ```
 
-### Commands for fun ###
-
-#### How to post a tweet ####
-
-* Use the post function and specify your tweet.
-
-For example:
-
-```ruby
->>> post("Hello World!")
-```
-
 ### Collect Tweets ###
 
 There are two ways to collect tweets: first, by specifying a bounding box, which is an array that consists of bottom-left-longitude, bottom-left-latitude, top-right-longitude, and top-right-latitude coordinates, and second, by specifying a certain keyword you want to track.
@@ -90,23 +78,23 @@ For example:
 
 #### Bounding Boxes ####
 
-| Region              | Bounding Box                                     |
-| ------------------- | ------------------------------------------------ |
-| United States       | `-123.587952,25.165173,-66.810608,48.980217    ` |
-| Southern California | `-120.021515,32.509762,-116.494389,34.998504   ` |
-| Northern California | `-124.476814,36.004673,-119.999027,42.004407   ` |
-| New England         | `-73.500279,41.000241,-67.000112,45.000394     ` |
-| New York City       | `-74.248567,40.498137,-73.756928,40.876141     ` |
-| Los Angeles         | `-119.113984,33.70035,-117.989259,34.330962    ` |
-| Chicago             | `-87.880497,41.681118,-87.506962,42.028894     ` |
-| Dallas              | `-96.925721,32.676373,-96.678529,32.924555     ` |
-| Houston             | `-95.748811,29.548372,-95.107484,30.107118     ` |
-| Philadelphia        | `-75.268922,39.882343,-74.966798,40.132691     ` |
-| Washington D.C.     | `-77.119653,38.827138,-76.909645,38.99554      ` |
-| Miami               | `-80.854311,25.177602,-80.118012,25.971626     ` |
-| Atlanta             | `-84.547745,33.65378,-84.28888,33.880962       ` |
-| Boston              | `-71.189716,42.233983,-70.98787,42.384923      ` |
-| San Francisco       | `-122.505852,37.707998,-122.358223,37.833107   ` |
+| Region              | Bounding Box                                          |
+| ------------------- | ----------------------------------------------------- |
+| United States       | `[-123.587952, 25.165173, -66.810608, 48.980217]    ` |
+| Southern California | `[-120.021515, 32.509762, -116.494389, 34.998504]   ` |
+| Northern California | `[-124.476814, 36.004673, -119.999027, 42.004407]   ` |
+| New England         | `[-73.500279, 41.000241, -67.000112, 45.000394]     ` |
+| New York City       | `[-74.248567, 40.498137, -73.756928, 40.876141]     ` |
+| Los Angeles         | `[-119.113984, 33.70035, -117.989259, 34.330962]    ` |
+| Chicago             | `[-87.880497, 41.681118, -87.506962, 42.028894]     ` |
+| Dallas              | `[-96.925721, 32.676373, -96.678529, 32.924555]     ` |
+| Houston             | `[-95.748811, 29.548372, -95.107484, 30.107118]     ` |
+| Philadelphia        | `[-75.268922, 39.882343, -74.966798, 40.132691]     ` |
+| Washington D.C.     | `[-77.119653, 38.827138, -76.909645, 38.99554]      ` |
+| Miami               | `[-80.854311, 25.177602, -80.118012, 25.971626]     ` |
+| Atlanta             | `[-84.547745, 33.65378, -84.28888, 33.880962]       ` |
+| Boston              | `[-71.189716, 42.233983, -70.98787, 42.384923]      ` |
+| San Francisco       | `[-122.505852, 37.707998, -122.358223, 37.833107]   ` |
 
 ### Load Tweets ###
 
@@ -140,20 +128,34 @@ or if you don't want to process the tweets:
 
 ### Analyze Tweets ###
 
-Then analyze the processed tweets.
+Then analyze the tweets.
 
-#### How to analyze the text in tweets ####
+#### How to run a character analysis ####
 
 For example:
 
 ```ruby
-> number_of_obama_references = number_of_occurrences("obama", processed_text)
+> character_statistics = character_analysis(raw_text)
 ```
 
-or
+#### How to find the most popular words in a set of tweets. ####
+
+For example:
 
 ```ruby
-> average_number_of_characters_in_tweets = average_number_of_characters(raw_text)
+> most_popular_words = top_words(5, processed_text)
+```
+
+### Commands for fun ###
+
+#### How to post a tweet ####
+
+* Use the post function and specify your tweet.
+
+For example:
+
+```ruby
+>>> post("Hello World!")
 ```
 
 ## License ##

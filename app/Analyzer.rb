@@ -57,6 +57,19 @@ def mode_number_of_characters(array_of_text)
   return mode(array_of_numbers)
 end
 
+# Run all character analysis
+def character_analysis(raw_text)
+  statistics = Hash.new
+  statistics.store("char_counts", number_of_characters(raw_text))
+  statistics.store("total", total_number_of_characters(raw_text))
+  statistics.store("max", maximum_number_of_characters(raw_text))
+  statistics.store("min", minimum_number_of_characters(raw_text))
+  statistics.store("mean", mean_number_of_characters(raw_text))
+  statistics.store("med", median_number_of_characters(raw_text))
+  statistics.store("mode", mode_number_of_characters(raw_text))
+  return statistics  
+end
+
 # STATISTICS
 
 # 1. Sum
