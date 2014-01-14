@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
 # Module: Run
 # Description: Run the application.
@@ -34,3 +34,5 @@ $character_statistics = character_analysis($raw_text)
 
 $top_5_processed_text = top_words(5, $processed_text)
 $top_5_delimited_raw_text = top_words(5, $delimited_raw_text)
+
+# puts $top_5_processed_text

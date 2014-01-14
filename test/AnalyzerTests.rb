@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
 # Module: Analyzer Tests
 # Description: This module tests the Analyzer module.

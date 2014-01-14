@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
 # Module: Collector Tests
 # Description: This module tests the Collector module.

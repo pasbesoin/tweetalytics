@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
 # Module: Analyzer
 # Description: This module contains a set of functions for analyzing processed

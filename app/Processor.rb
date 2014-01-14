@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
 # Module: Processor
 # Description: This module processes the loaded tweets to formats that are

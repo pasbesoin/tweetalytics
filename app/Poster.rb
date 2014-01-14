@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
 # Module: Poster
 # Description: This module posts a tweet using twurl to your timeline.

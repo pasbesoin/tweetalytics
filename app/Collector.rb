@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 
 # Module: Collector
 # Description: This module collects tweets using twurl and the Twitter API and
