@@ -6,6 +6,9 @@
 require './app/Loader'
 require './app/Processor'
 require './app/Analyzer'
+include Loader
+include Processor
+include Analyzer
 
 def average_number_of_characters_test()
   pass

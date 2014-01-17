@@ -4,6 +4,7 @@
 # Description: This module tests the Collector module.
 
 require './app/Collector'
+include Collector
 
 def collect_test(collected_output)
   count = 0

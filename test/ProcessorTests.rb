@@ -5,6 +5,8 @@
 
 require './app/Loader'
 require './app/Processor'
+include Loader
+include Processor
 
 # Function: Remove URLs Test
 # Description: This function tests whether the resulting output of remove_urls
