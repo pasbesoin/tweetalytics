@@ -226,11 +226,11 @@ github
 * Git - Version Control System
 * HipChat Application - Communication
 
-1\. Download RailsInstaller
+1\. <a href="http://railsinstaller.org/en" target="_blank">Download RailsInstaller</a>
 
-2\. <a href="https://www.hipchat.com/downloads#windows" target="_blank">Download the HipChat Application</a>
+2\. <a href="http://windows.github.com/" target="_blank">Download the GitHub Application</a>
 
-3\. Install the HipChat Application
+3\. <a href="https://www.hipchat.com/downloads#windows" target="_blank">Download the HipChat Application</a>
 
 ##Ubuntu Instructions##
 
