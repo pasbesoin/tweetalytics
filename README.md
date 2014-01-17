@@ -146,4 +146,4 @@ Copyright (c) 2014 Paul Land
 
 ## Problems ##
 
-If you find any issues please [report them](https://github.com/paul-land/tweetalytics/issues) or send a [pull request](https://github.com/paul-land/tweetalytics/pulls).
+If you find any issues please [report them](https://github.com/tweetalytics/tweetalytics/issues) or send a [pull request](https://github.com/tweetalytics/tweetalytics/pulls).
