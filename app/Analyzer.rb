@@ -174,9 +174,50 @@ module Analyzer
 
   $insignificant_words = ["the", "a", "to", "is", "an", "of", "and", "or", "it"]
 
+  # Finds the next three words after a keyword in space_delimited_text
+  # Returns an Array of Arrays of Strings
+  # space_delimited_text = ["Hello", "my", "name", "is", "Hello", "Bitch", "My", "Name"]
+  # space_delimited_text2 = ["Yo", "Yo", "Yo", "Hello", "Yo", "Yo", "Yo"]
+  # keyword = "Hello"
+  # three_words_after_keyword_tweet(keyword, space_delimited_text)
+  # => [["Hello", "my", "name", "is"], ["Hello", "Bitch", "My", "Name"]]
+  # three_words_after_keyword_tweet(keyword, space_delimited_text2)
+  # => [["Hello", "Yo", "Yo", "Yo"]]
+  def three_words_after_keyword_tweet(keyword, space_delimited_text)
+    set = Array.new
+    keyword_indices = space_delimited_text.find_each_index(keyword)
+    if keyword_indices.empty?
+      puts "That keyword cannot be found. Try a different keyword"
+      return
+    end
+    i = 0
+    keyword_indices.each do |k|
+      set[i] = space_delimited_text[k..(k + 3)]
+      i += 1
+    end
+    return set
+  end
+
+  # Finds the next three words after a keyword across a set of tweets
+  # Returns an Array of Arrays of Arrays of Strings
+  # processed_text = [["Hello", "my", "name", "is", "Hello", "Bitch", "My", "Name"], ["Yo", "Yo", "Yo", "Hello", "Yo", "Yo", "Yo"]]
+  # keyword = "Hello"
+  # three_words_after_keyword(keyword, processed_text)
+  # => [[["Hello", "my", "name", "is"], ["Hello", "Bitch", "My", "Name"]], [["Hello", "Yo", "Yo", "Yo"]]]
+  def three_words_after_keyword(keyword, processed_text)
+    set = Array.new
+    i = 0
+    processed_text.each do |tweet|
+      set[i] = three_words_after_keyword_tweet(keyword, tweet)
+      i += 1
+    end
+    return set
+  end
+
 end
 
 class Array
+
   def top(x)
     if self.length < x
       puts "Error"
@@ -198,30 +239,44 @@ class Array
       return top_elements
     end
   end
+  
+  def find_each_index(string)
+    found = -1
+    index = -1
+    indices = []
+    while found
+      found = self[(index + 1)..-1].index(string)
+      if found
+        index = index + found + 1
+        indices << index
+      end
+    end
+    return indices
+  end
+
 end
 
 # Finds the next three words after keyword from a set of tweets
-def words_after_keyword(keyword, processed_text)
-  set = Array.new
-  z=processed_text
-  i=0
-  x=0
-  while i <= ((z.length)-1) 
-    k=z.at(i).index(keyword)
-    if k
-      set[x]=z.at(i)[k..(k+3)]
-    end
-    if set[x]
-      x+=1
-    end
-     i+=1
-  end
-  
-  #Displays the words after keywords in an array.
-  if set[0] 
-    return set
-  else
-    puts "That keyword cannot be found. Try a differnt keyword"
-  end
-end
-        
+# def words_after_keyword(keyword, processed_text)
+#   set = Array.new
+#   z=processed_text
+#   i=0
+#   x=0
+#   while i <= ((z.length)-1) 
+#     k=z.at(i).index(keyword)
+#     if k
+#       set[x]=z.at(i)[k..(k+3)]
+#     end
+#     if set[x]
+#       x+=1
+#     end
+#      i+=1
+#   end
+#   
+#   #Displays the words after keywords in an array.
+#   if set[0] 
+#     return set
+#   else
+#     puts "That keyword cannot be found. Try a differnt keyword"
+#   end
+# end
