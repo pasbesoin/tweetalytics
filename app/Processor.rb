@@ -124,7 +124,7 @@ module Processor
   def extract_words(text)
     new_str = ""
     text.each_char do |char|
-      if char.match(/[a-zA-Z]/)
+      if char.match(/[a-zA-Z\']/)
         new_str += char
       else
         new_str += " "

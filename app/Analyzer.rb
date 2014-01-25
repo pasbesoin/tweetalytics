@@ -199,3 +199,29 @@ class Array
     end
   end
 end
+
+# Finds the next three words after keyword from a set of tweets
+def words_after_keyword(keyword, processed_text)
+  set = Array.new
+  z=processed_text
+  i=0
+  x=0
+  while i <= ((z.length)-1) 
+    k=z.at(i).index(keyword)
+    if k
+      set[x]=z.at(i)[k..(k+3)]
+    end
+    if set[x]
+      x+=1
+    end
+     i+=1
+  end
+  
+  #Displays the words after keywords in an array.
+  if set[0] 
+    return set
+  else
+    puts "That keyword cannot be found. Try a differnt keyword"
+  end
+end
+        
