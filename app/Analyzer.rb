@@ -186,14 +186,14 @@ module Analyzer
   def three_words_after_keyword_tweet(keyword, space_delimited_text)
     set = Array.new
     keyword_indices = space_delimited_text.find_each_index(keyword)
-    if keyword_indices.empty?
-      puts "That keyword cannot be found. Try a different keyword"
-      return
-    end
     i = 0
-    keyword_indices.each do |k|
-      set[i] = space_delimited_text[k..(k + 3)]
-      i += 1
+    if not keyword_indices.empty?
+      keyword_indices.each do |k|
+        set[i] = space_delimited_text[k..(k + 3)]
+        i += 1
+      end
+    elsif keyword_indices.empty?
+      return
     end
     return set
   end
@@ -208,8 +208,14 @@ module Analyzer
     set = Array.new
     i = 0
     processed_text.each do |tweet|
-      set[i] = three_words_after_keyword_tweet(keyword, tweet)
-      i += 1
+      if three_words_after_keyword_tweet(keyword, tweet) != nil
+        set[i] = three_words_after_keyword_tweet(keyword, tweet)
+        i += 1
+      end
+    end
+    if set.empty?
+      puts "That keyword cannot be found. Try a different keyword"
+      return
     end
     return set
   end
