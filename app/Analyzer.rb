@@ -174,22 +174,26 @@ module Analyzer
 
   $insignificant_words = ["the", "a", "to", "is", "an", "of", "and", "or", "it"]
 
-  # Finds the next three words after a keyword in space_delimited_text
+  # Finds the next a words after a keyword in space_delimited_text
   # Returns an Array of Arrays of Strings
   # space_delimited_text = ["Hello", "my", "name", "is", "Hello", "Bitch", "My", "Name"]
   # space_delimited_text2 = ["Yo", "Yo", "Yo", "Hello", "Yo", "Yo", "Yo"]
   # keyword = "Hello"
-  # three_words_after_keyword_tweet(keyword, space_delimited_text)
+  # words_around_keyword_tweet(keyword, space_delimited_text, 3)
   # => [["Hello", "my", "name", "is"], ["Hello", "Bitch", "My", "Name"]]
-  # three_words_after_keyword_tweet(keyword, space_delimited_text2)
+  # words_around_keyword_tweet(keyword, space_delimited_text2, 3)
   # => [["Hello", "Yo", "Yo", "Yo"]]
-  def three_words_after_keyword_tweet(keyword, space_delimited_text)
+  def words_around_keyword_tweet(keyword, space_delimited_text, a)
     set = Array.new
     keyword_indices = space_delimited_text.find_each_index(keyword)
     i = 0
     if not keyword_indices.empty?
       keyword_indices.each do |k|
-        set[i] = space_delimited_text[k..(k + 3)]
+        if (k - a) < 0
+          set[i] = space_delimited_text[0..(k + a)]
+        else
+          set[i] = space_delimited_text[(k - a)..(k + a)]
+        end
         i += 1
       end
     elsif keyword_indices.empty?
@@ -198,18 +202,18 @@ module Analyzer
     return set
   end
 
-  # Finds the next three words after a keyword across a set of tweets
+  # Finds the next a words after a keyword across a set of tweets
   # Returns an Array of Arrays of Arrays of Strings
   # processed_text = [["Hello", "my", "name", "is", "Hello", "Bitch", "My", "Name"], ["Yo", "Yo", "Yo", "Hello", "Yo", "Yo", "Yo"]]
   # keyword = "Hello"
-  # three_words_after_keyword(keyword, processed_text)
+  # words_around_keyword(keyword, processed_text, 3)
   # => [[["Hello", "my", "name", "is"], ["Hello", "Bitch", "My", "Name"]], [["Hello", "Yo", "Yo", "Yo"]]]
-  def three_words_after_keyword(keyword, processed_text)
+  def words_around_keyword(keyword, processed_text, a)
     set = Array.new
     i = 0
     processed_text.each do |tweet|
-      if three_words_after_keyword_tweet(keyword, tweet) != nil
-        set[i] = three_words_after_keyword_tweet(keyword, tweet)
+      if words_around_keyword_tweet(keyword, tweet, a) != nil
+        set[i] = words_around_keyword_tweet(keyword, tweet, a)
         i += 1
       end
     end
