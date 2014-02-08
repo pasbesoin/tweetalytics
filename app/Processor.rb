@@ -76,6 +76,11 @@ module Processor
       for url in tweets[i]["entities"]["urls"]
         delimited_text[i].delete(url["url"])
       end
+      if not tweets[i]["entities"]["media"]
+        for media in tweets[i]["entities"]["media"]
+          delimited_text[i].delete(media["url"])
+        end
+      end
       no_urls_text_array.push(delimited_text[i])
     end
     no_urls_tweets = Array.new
@@ -85,15 +90,17 @@ module Processor
     return no_urls_tweets
   end
 
-  # Finds each URL in a tweet and returns an array of indices
-  def find_urls(tweet)
-    pass
-  end
+  # Account for other urls
 
-  # Account for user mentions urls
-  # tweets[i]["entities"]["user_mentions"]
-  # $tweets[i]["retweeted_status"]["entities"]["media"]
-  # $tweets[i]["retweeted_status"]["entities"]["media"][0]["url"]
+  # tweets[i]["retweeted_status"]["entities"]["media"][j]["url"]
+  # tweets[i]["entities"]["media"][j]["url"]
+  # tweets[i]["entities"]["urls"][j]["url"]
+
+  # tweets[7]["retweeted_status"]["entities"]["media"][0]["url"]
+  # tweets[17]["retweeted_status"]["entities"]["media"][0]["url"]
+  # tweets[7]["entities"]["media"][0]["url"]
+  # tweets[9]["entities"]["media"][0]["url"]
+  # tweets[17]["entities"]["media"][0]["url"]
 
   # # Removes each URL from each tweet in a set of tweets.
   # def remove_urls(tweets)
