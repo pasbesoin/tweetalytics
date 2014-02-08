@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 
 # Module: Processor
 # Description: This module processes the loaded tweets to formats that are
@@ -60,23 +61,50 @@ module Processor
   end
 
   # This delimits text by space.
-  def delimit_text(text)
+  def delimit_text(tweets)
     delimited_text = Array.new
-    for string in text
-      delimited_text.push(string.split())
+    no_rt_text = remove_rt(tweets)
+    for text in no_rt_text
+      delimited_text.push((extract_without_special_quotes(text).split()))
     end
     return delimited_text
+  end
+
+  def remove_rt(tweets)
+    no_rt_text = Array.new
+    for tweet in tweets
+      if tweet["retweeted_status"] != nil
+        start = tweet["text"].index(":") + 2
+        no_rt_text.push(tweet["text"][start...tweet["text"].length])
+      else
+        no_rt_text.push(tweet["text"])
+      end
+    end
+    return no_rt_text
+  end
+
+  def extract_without_special_quotes(text)
+    new_str = ""
+    text.each_char do |char|
+      if not char.match(/[\“\”]/)
+        new_str += char
+      else
+        new_str += " "
+      end
+    end
+    return new_str
   end
 
   # Removes each URL from each tweet in a set of tweets.
   def remove_urls(tweets)
     no_urls_text_array = Array.new
-    delimited_text = delimit_text(get_raw_text(tweets))
+    delimited_text = delimit_text(tweets)
+    # delimited_text = delimit_text(get_raw_text(tweets))
     for i in (0...delimited_text.length)
       for url in tweets[i]["entities"]["urls"]
         delimited_text[i].delete(url["url"])
       end
-      if not tweets[i]["entities"]["media"]
+      if tweets[i]["entities"]["media"] != nil
         for media in tweets[i]["entities"]["media"]
           delimited_text[i].delete(media["url"])
         end
@@ -89,46 +117,6 @@ module Processor
     end
     return no_urls_tweets
   end
-
-  # Account for other urls
-
-  # tweets[i]["retweeted_status"]["entities"]["media"][j]["url"]
-  # tweets[i]["entities"]["media"][j]["url"]
-  # tweets[i]["entities"]["urls"][j]["url"]
-
-  # tweets[7]["retweeted_status"]["entities"]["media"][0]["url"]
-  # tweets[17]["retweeted_status"]["entities"]["media"][0]["url"]
-  # tweets[7]["entities"]["media"][0]["url"]
-  # tweets[9]["entities"]["media"][0]["url"]
-  # tweets[17]["entities"]["media"][0]["url"]
-
-  # # Removes each URL from each tweet in a set of tweets.
-  # def remove_urls(tweets)
-  #   no_url_text_array = Array.new
-  #   for i in (0...tweets.length)
-  #     raw_text = tweets[i]["text"]
-  #     no_url_text = ""
-  #     first = ""
-  #     rest = raw_text
-  #     start = 0
-  #     end_i = 0
-  #     length_of_prev_urls = 0
-  #     for j in (0...tweets[i]["entities"]["urls"].length)
-  #       start_index = tweets[i]["entities"]["urls"][j]["indices"][0]
-  #       end_index = tweets[i]["entities"]["urls"][j]["indices"][1]
-  #       start = start_index - (no_url_text.length + length_of_prev_urls)
-  #       end_i = end_index - (no_url_text.length + length_of_prev_urls)
-  #       first = raw_text[0...start]
-  #       rest = raw_text[end_i...raw_text.length]
-  #       no_url_text += first
-  #       raw_text = rest
-  #       length_of_prev_urls = length_of_prev_urls + (end_i - start)
-  #     end
-  #     no_url_text += rest
-  #     no_url_text_array.push(no_url_text)
-  #   end
-  #   return no_url_text_array
-  # end
 
   # Return the words in a tweet, not including punctuation.
   def extract_words(text)

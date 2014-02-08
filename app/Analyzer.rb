@@ -172,7 +172,7 @@ module Analyzer
     return set
   end
 
-  $insignificant_words = ["the", "a", "to", "is", "an", "of", "and", "or", "it"]
+  $insignificant_words = ["the", "a", "to", "is", "an", "of", "and", "or", "it", "this", "for"]
 
   # Finds the next a words after a keyword in space_delimited_text
   # Returns an Array of Arrays of Strings
