@@ -70,15 +70,19 @@ module Processor
 
   # Removes each URL from each tweet in a set of tweets.
   def remove_urls(tweets)
-    no_url_text_array = Array.new
+    no_urls_text_array = Array.new
     delimited_text = delimit_text(get_raw_text(tweets))
     for i in (0...delimited_text.length)
       for url in tweets[i]["entities"]["urls"]
         delimited_text[i].delete(url["url"])
       end
-      no_url_text_array.push(delimited_text[i])
+      no_urls_text_array.push(delimited_text[i])
     end
-    return no_url_text_array.join(" ")
+    no_urls_tweets = Array.new
+    for tweet in no_urls_text_array
+      no_urls_tweets.push(tweet.join(" "))
+    end
+    return no_urls_tweets
   end
 
   # Finds each URL in a tweet and returns an array of indices
@@ -157,9 +161,8 @@ module Processor
   end
 
   def process(tweets)
-    # en_lang_tweets = get_en_lang(tweets)
-    # no_urls_text = remove_urls(en_lang_tweets)
-    no_urls_text = remove_urls(tweets)
+    en_lang_tweets = get_en_lang(tweets)
+    no_urls_text = remove_urls(en_lang_tweets)
     processed_text = tweet_words(no_urls_text)
     return processed_text
   end
