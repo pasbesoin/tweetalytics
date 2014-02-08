@@ -71,13 +71,12 @@ module Processor
   # Removes each URL from each tweet in a set of tweets.
   def remove_urls(tweets)
     no_url_text_array = Array.new
-    raw_text = get_raw_text(tweets)
-    text = delimit_text(raw_text)
-    for i in (0...raw_text.length)    
-      for j in tweets[i]["entities"]["urls"]    
-        text[i].delete(j["url"] )
+    delimited_text = delimit_text(get_raw_text(tweets))
+    for i in (0...delimited_text.length)
+      for url in tweets[i]["entities"]["urls"]
+        delimited_text[i].delete(url["url"])
       end
-      no_url_text_array.push(text[i])
+      no_url_text_array.push(delimited_text[i])
     end
     return no_url_text_array
   end
@@ -106,7 +105,7 @@ module Processor
   # $tweets[7]["retweeted_status"]["entities"]["media"][0]["url"]
   # $tweets[7]["retweeted_status"]["entities"]["media"][0]["indices"]
 
-  # Removes each URL from each tweet in a set of tweets.
+  # # Removes each URL from each tweet in a set of tweets.
   # def remove_urls(tweets)
   #   no_url_text_array = Array.new
   #   for i in (0...tweets.length)
