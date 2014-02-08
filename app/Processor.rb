@@ -78,7 +78,7 @@ module Processor
       end
       no_url_text_array.push(delimited_text[i])
     end
-    return no_url_text_array
+    return no_url_text_array.join(" ")
   end
 
   # Finds each URL in a tweet and returns an array of indices
