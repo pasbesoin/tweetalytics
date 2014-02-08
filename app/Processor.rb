@@ -91,23 +91,9 @@ module Processor
   end
 
   # Account for user mentions urls
-  # for k in (0...tweets[i]["entities"]["user_mentions"].length)
-  #   start_index = tweets[i]["entities"]["user_mentions"][k]["indices"][0]
-  #   end_index = tweets[i]["entities"]["user_mentions"][k]["indices"][1]
-  #   start = start_index - (no_url_text.length + length_of_prev_urls)
-  #   end_i = end_index - (no_url_text.length + length_of_prev_urls)
-  #   first = raw_text[0...start]
-  #   rest = raw_text[end_i...raw_text.length]
-  #   no_url_text += first
-  #   raw_text = rest
-  #   length_of_prev_urls = length_of_prev_urls + (end_i - start)
-  # end
-  # $processed_text[7]
-  # $processed_text[9]
-  # $processed_text[17]
-  # $tweets[7]["retweeted_status"]["entities"]["media"]
-  # $tweets[7]["retweeted_status"]["entities"]["media"][0]["url"]
-  # $tweets[7]["retweeted_status"]["entities"]["media"][0]["indices"]
+  # tweets[i]["entities"]["user_mentions"]
+  # $tweets[i]["retweeted_status"]["entities"]["media"]
+  # $tweets[i]["retweeted_status"]["entities"]["media"][0]["url"]
 
   # # Removes each URL from each tweet in a set of tweets.
   # def remove_urls(tweets)
