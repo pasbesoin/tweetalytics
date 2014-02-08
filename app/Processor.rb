@@ -60,16 +60,6 @@ module Processor
     return en_user_lang_raw_text
   end
 
-  # This delimits text by space.
-  def delimit_text(tweets)
-    delimited_text = Array.new
-    no_rt_text = remove_rt(tweets)
-    for text in no_rt_text
-      delimited_text.push((extract_without_special_quotes(text).split()))
-    end
-    return delimited_text
-  end
-
   def remove_rt(tweets)
     no_rt_text = Array.new
     for tweet in tweets
@@ -93,6 +83,16 @@ module Processor
       end
     end
     return new_str
+  end
+
+  # This delimits text by space.
+  def delimit_text(tweets)
+    delimited_text = Array.new
+    no_rt_text = remove_rt(tweets)
+    for text in no_rt_text
+      delimited_text.push((extract_without_special_quotes(text).split()))
+    end
+    return delimited_text
   end
 
   # Removes each URL from each tweet in a set of tweets.
