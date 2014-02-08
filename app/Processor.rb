@@ -71,27 +71,13 @@ module Processor
   # Removes each URL from each tweet in a set of tweets.
   def remove_urls(tweets)
     no_url_text_array = Array.new
-    for i in (0...tweets.length)
-      raw_text = tweets[i]["text"]
-      no_url_text = ""
-      first = ""
-      rest = raw_text
-      start = 0
-      end_i = 0
-      length_of_prev_urls = 0
-      for j in (0...tweets[i]["entities"]["urls"].length)
-        start_index = tweets[i]["entities"]["urls"][j]["indices"][0]
-        end_index = tweets[i]["entities"]["urls"][j]["indices"][1]
-        start = start_index - (no_url_text.length + length_of_prev_urls)
-        end_i = end_index - (no_url_text.length + length_of_prev_urls)
-        first = raw_text[0...start]
-        rest = raw_text[end_i...raw_text.length]
-        no_url_text += first
-        raw_text = rest
-        length_of_prev_urls = length_of_prev_urls + (end_i - start)
+    raw_text = get_raw_text(tweets)
+    text = delimit_text(raw_text)
+    for i in (0...raw_text.length)    
+      for j in tweets[i]["entities"]["urls"]    
+        text[i].delete(j["url"] )
       end
-      no_url_text += rest
-      no_url_text_array.push(no_url_text)
+      no_url_text_array.push(text[i])
     end
     return no_url_text_array
   end
@@ -120,6 +106,34 @@ module Processor
   # $tweets[7]["retweeted_status"]["entities"]["media"][0]["url"]
   # $tweets[7]["retweeted_status"]["entities"]["media"][0]["indices"]
 
+  # Removes each URL from each tweet in a set of tweets.
+  # def remove_urls(tweets)
+  #   no_url_text_array = Array.new
+  #   for i in (0...tweets.length)
+  #     raw_text = tweets[i]["text"]
+  #     no_url_text = ""
+  #     first = ""
+  #     rest = raw_text
+  #     start = 0
+  #     end_i = 0
+  #     length_of_prev_urls = 0
+  #     for j in (0...tweets[i]["entities"]["urls"].length)
+  #       start_index = tweets[i]["entities"]["urls"][j]["indices"][0]
+  #       end_index = tweets[i]["entities"]["urls"][j]["indices"][1]
+  #       start = start_index - (no_url_text.length + length_of_prev_urls)
+  #       end_i = end_index - (no_url_text.length + length_of_prev_urls)
+  #       first = raw_text[0...start]
+  #       rest = raw_text[end_i...raw_text.length]
+  #       no_url_text += first
+  #       raw_text = rest
+  #       length_of_prev_urls = length_of_prev_urls + (end_i - start)
+  #     end
+  #     no_url_text += rest
+  #     no_url_text_array.push(no_url_text)
+  #   end
+  #   return no_url_text_array
+  # end
+
   # Return the words in a tweet, not including punctuation.
   def extract_words(text)
     new_str = ""
@@ -144,8 +158,9 @@ module Processor
   end
 
   def process(tweets)
-    en_lang_tweets = get_en_lang(tweets)
-    no_urls_text = remove_urls(en_lang_tweets)
+    # en_lang_tweets = get_en_lang(tweets)
+    # no_urls_text = remove_urls(en_lang_tweets)
+    no_urls_text = remove_urls(tweets)
     processed_text = tweet_words(no_urls_text)
     return processed_text
   end
